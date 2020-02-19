@@ -18,3 +18,35 @@ export function getAppointmentsForDay(state, day) {
     }
     return results;
   }
+
+
+export function getInterview(state, interview){
+    let results = {};
+
+    if(!interview) {
+        return null;
+    }
+    
+    results["student"] = interview.student;
+    const keys = Object.keys(state.interviewers);
+    for (let key of keys) {
+     if (Number(key) === interview.interviewer) {
+        results['interviewer'] = state.interviewers[key]
+            
+     } 
+
+    }
+    return results;
+
+}
+
+
+
+//   {  
+//     "student": "Lydia Miller-Jones",
+//     "interviewer": {  
+//       "id": 1,
+//       "name": "Sylvia Palmer",
+//       "avatar": "https://i.imgur.com/LpaY82x.png"
+//     }
+//   }
