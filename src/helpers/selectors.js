@@ -20,6 +20,28 @@ export function getAppointmentsForDay(state, day) {
   }
 
 
+export function getInterviewersForDay(state, day) {
+  if (state.days.length === 0) {
+    return [];
+  }
+  const filteredDays = state.days.filter(weekday => weekday.name === day)
+  if (filteredDays.length === 0) {
+    return [];
+  }
+  const interviewersKeys = Object.keys(state.interviewers);
+  const results = [];
+  for (let key of interviewersKeys) {
+    if (filteredDays[0].interviewers.includes(Number(key))) {
+      results.push(state.interviewers[key])
+    }
+  }
+  console.log(results)
+  return results;
+  
+}
+
+
+
 export function getInterview(state, interview){
     let results = {};
 
