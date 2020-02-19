@@ -16,6 +16,7 @@ export function getAppointmentsForDay(state, day) {
         results.push(state.appointments[key])
       }
     }
+
     return results;
   }
 
@@ -35,7 +36,6 @@ export function getInterviewersForDay(state, day) {
       results.push(state.interviewers[key])
     }
   }
-  console.log(results)
   return results;
   
 }

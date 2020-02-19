@@ -13,17 +13,53 @@ export default function Application(props) {
     appointments: {},
     interviewers: {}
   });
+
+  function cancelInterview(id) {
+    return (axios.delete(`/api/appointments/${id}`))
+  }
+
+  function bookInterview(id, interview) {
+// console.log(id, "ids")
+//     console.log(interview, "interview")
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    } 
+    
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }; 
+
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
+    return (axios.put(`/api/appointments/${id}`, appointment)
+    .then(setState({...state, appointments}))
+    .catch(function (error) {console.log(error);}))
+    
+
+  }
+
+ 
+
   const setDay = day => setState({ ...state, day });
   const interviewersArray = getInterviewersForDay(state, state.day)
-  
+
   const appointments = getAppointmentsForDay(state, state.day);
   const schedule = appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview)
+
     return (
       <Appointment
         key={appointment.id}
         id={appointment.id}
         time={appointment.time}
-        interview={appointment.interview}
+        interview={interview}
+        interviewers={interviewersArray}
+        bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
@@ -36,7 +72,6 @@ export default function Application(props) {
     
     Promise.all([result1, result2, result3])
     .then((all) => {
-      console.log(all[2].data)
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
       })
 
