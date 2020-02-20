@@ -35,9 +35,9 @@ export default function Application(props) {
     //   ...state,
     //   appointments
     // });
+    
     return (axios.put(`/api/appointments/${id}`, appointment)
-    .then(setState({...state, appointments}))
-    .catch(function (error) {console.log(error);}))
+    .then(setState({...state, appointments})))
     
 
   }

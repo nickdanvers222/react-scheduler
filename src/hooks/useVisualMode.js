@@ -5,6 +5,7 @@ const [mode, setMode] = useState(initial);
 const [history, setHistory] = useState([initial]);
 
     function transition(newMode, replace = false) {
+        console.log("new mode", newMode);
      (replace ? setHistory(history) : setHistory([...history, mode]))
      setHistory([...history, newMode])
      setMode(newMode);   
@@ -15,6 +16,6 @@ const [history, setHistory] = useState([initial]);
      setHistory(preHistory)
      history.length > 1 ? setMode(preHistory[preHistory.length - 1]) : setMode(history.toString())     
     }
-    
+
     return { mode, transition, back }
 }
