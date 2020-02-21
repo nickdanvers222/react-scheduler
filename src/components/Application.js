@@ -14,45 +14,7 @@ export default function Application(props) {
     cancelInterview,
   } = useApplicationData();
 
-  // const [state, setState] = useState({
-  //   day: "Monday",
-  //   days: [],
-  //   appointments: {},
-  //   interviewers: {}
-  // });
-
-  // function cancelInterview(id) {
-  //   return (axios.delete(`/api/appointments/${id}`))
-  // }
-
-  // function bookInterview(id, interview) {
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview }
-  //   } 
-    
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment
-  //   }; 
-
-  //   // setState({
-  //   //   ...state,
-  //   //   appointments
-  //   // });
-    
-  //   return (axios.put(`/api/appointments/${id}`, appointment)
-  //   .then(setState({...state, appointments})))
-    
-
-  // }
-
- 
-
-  // const setDay = day => setState({ ...state, day });
-
-
-
+  console.log(state.day);
   const interviewersArray = getInterviewersForDay(state, state.day)
 
   const appointments = getAppointmentsForDay(state, state.day);
