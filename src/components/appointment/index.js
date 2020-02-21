@@ -24,8 +24,11 @@ export default function Appointment(props) {
     const { mode, transition, back } = useVisualMode(
         props.interview ? SHOW : EMPTY
       );
+///if we are in the EMPTY mode with a truthy interview value.
 
     function save(name, interviewer) {
+       
+
         transition(SAVING)
 
       const interview = {
@@ -33,12 +36,11 @@ export default function Appointment(props) {
         interviewer
       };
 
+
       props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(error => transition(ERROR_SAVE))
     }
-
-
     const onAdd = () => {
      transition(CREATE)
     }
