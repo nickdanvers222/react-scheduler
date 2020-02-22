@@ -9,19 +9,50 @@ const SET_INTERVIEW = "SET_INTERVIEW";
 const SHOW = "SHOW";
 const EMPTY = "EMPTY";
 
+const spotCounter = (id, flag,state) => {
+  let targetDay = state.days.filter(weekday => weekday.appointments.includes(id))
+  const dayId = targetDay[0] && targetDay[0].id
+  let newSpots = state.days[dayId - 1].spots
+
+  if(flag && state.appointments[id].interview === null) {
+    newSpots -- ;
+  // } else if (flag && state.appointments[id].interview !== null) {
+    // newSpots --;
+  } else if (!flag) {
+    newSpots++;
+  }
+
+  return state.days.map(day => {
+    if(day.id !== dayId) {
+      return day;
+    } return {
+      ...day,
+      spots:newSpots,
+    }
+  })
+} 
 
 function reducer(state, action) {
   switch (action.type) {
     case SET_DAY:
       return {...state, day:action.day}
+      //
     case SET_APPLICATION_DATA:
       console.log('set app data', action.days)
       return {...state, days: [...action.days], appointments:action.appointments, interviewers:action.interviewers }
+      //
     case SET_INTERVIEW: {
-      const { appointments, interview, days } = action
-      console.log('set interview', days)
-      return interview ?  {...state, appointments, days} : {...state, days, appointments};
+      const { appointments, interview, state, flag, id } = action
+      if (flag) {
+        const days = spotCounter(id, true, state);
+        return interview ?  {...state, appointments, days} : {...state, days, appointments};
+
+      } else {
+        const days = spotCounter(id, false, state);
+        return interview ?  {...state, appointments, days} : {...state, days, appointments};
+      }
     }
+      //
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -45,31 +76,8 @@ function reducer(state, action) {
     const { mode, transition, back } = useVisualMode(
     );
 
-    console.log('rerender', state.days);
 
-    const spotCounter = (id, flag) => {
-      console.log('spots counter', id, flag, state.days)
-      let targetDay = state.days.filter(weekday => weekday.appointments.includes(id))
-      const dayId = targetDay[0] && targetDay[0].id
-      let newSpots = state.days[dayId - 1].spots
 
-      if(flag && state.appointments[id].interview === null) {
-        newSpots -- ;
-      // } else if (flag && state.appointments[id].interview !== null) {
-        // newSpots --;
-      } else if (!flag) {
-        newSpots++;
-      }
-
-      return state.days.map(day => {
-        if(day.id !== dayId) {
-          return day;
-        } return {
-          ...day,
-          spots:newSpots,
-        }
-      })
-    } 
     function bookInterview(id, interview) {
 
         const appointment = {
@@ -81,13 +89,10 @@ function reducer(state, action) {
           ...state.appointments,
           [id]: appointment
         }; 
-        console.log('after socket update, ', id, state.days)
-        const days = spotCounter(id, true);
 
         return (axios.put(`/api/appointments/${id}`, appointment))
         .then(() => {
-          console.log(interview, appointments,days);
-          dispatch({type: SET_INTERVIEW, id, interview, appointments, days});
+          dispatch({type: SET_INTERVIEW, id, interview, appointments, state, flag:true});
         })
 
     }
@@ -103,11 +108,11 @@ function reducer(state, action) {
         [id]: appointment
       }; 
 
-      const days = spotCounter(id, false)
+      // const days = spotCounter(id, false)
 
      return (axios.delete(`/api/appointments/${id}`))
      .then(() => {
-      dispatch({type: SET_INTERVIEW, id, interview:null, days, appointments});
+      dispatch({type: SET_INTERVIEW, id, interview:null, appointments, state, flag:false});
      })
     }
     const setDay = day => dispatch({type: SET_DAY, day});
@@ -120,7 +125,7 @@ function reducer(state, action) {
       //
 
       webSocket.onmessage = function (event) {
-        console.log(event.data, state.days)
+        console.log(event.data, state)
         const parsed = JSON.parse(event.data)
           if (parsed.type === "SET_INTERVIEW") { 
 
