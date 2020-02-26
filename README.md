@@ -8,12 +8,8 @@
 
  (Data/names are spoofed and have no real meaning)
 
-## Setup
-
-Install dependencies with `npm install`.
-
 ## Data
- Appointment/interview data comes from a scheduler API provided by Lighthouse Labs. 
+
 
  ### Netlify hosted Scheduler: https://stoic-einstein-ea6321.netlify.com/
 
@@ -24,6 +20,14 @@ Install dependencies with `npm install`.
  ---> /api/appointments
 
  ---> /api/interviewers
+
+  Appointment/interview data comes from a scheduler API provided by Lighthouse Labs by default. 
+  
+## Setup
+
+Install dependencies with `npm install`.
+
+
 
 ## Running Webpack Development Server
 
