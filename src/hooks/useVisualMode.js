@@ -17,4 +17,5 @@ const [history, setHistory] = useState([initial]);
   }
 
   return { mode, transition, back }
+  
 }
