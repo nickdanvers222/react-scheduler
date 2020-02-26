@@ -1,8 +1,13 @@
 import React from 'react';
 import InterviewerListItem from "./InterviewerListItem"
+import PropTypes from 'prop-types';
 import "./InterviewerList.scss"
 
+
+
+
 export default function InterviewerList(props) {
+
     return(
       <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
@@ -18,7 +23,17 @@ export default function InterviewerList(props) {
             />
           )
         })}
+
+
       </ul>
     </section>
     )
+    
 }
+
+InterviewerList.propTypes = 
+{
+  name:PropTypes.number,
+  value:PropTypes.number,
+  onChange:PropTypes.func.isRequired
+};

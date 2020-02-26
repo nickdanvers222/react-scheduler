@@ -1,29 +1,10 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { actions } from '@storybook/addon-actions/dist/preview';
-const axios = require('axios')
-
-const SET_DAY = "SET_DAY";
-const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-const SET_INTERVIEW = "SET_INTERVIEW";
-
-
-function reducer(state, action) {
-  switch (action.type) {
-    case SET_DAY:
-      return {...state, day:action.day}
-    case SET_APPLICATION_DATA:
-      return {...state, days:action.days, appointments:action.appointments, interviewers:action.interviewers }
-    case SET_INTERVIEW: {
-      const { appointments, interview, days } = action
-      return interview ?  {...state, appointments, days} : {...state, days, appointments};
-    }
-    default:
-      throw new Error(
-        `Tried to reduce with unsupported action type: ${action.type}`
-      );
-  }
-}
-
+import axios from "axios";
+import {reducer,
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW
+} from "reducers/application";
 
 export default function useApplicationData() {
     const [state, dispatch] = useReducer(reducer, {
@@ -69,7 +50,7 @@ export default function useApplicationData() {
 
         const days = spotCounter(id, true);
 
-        return (axios.put(`/api/appointments/${id}`, appointment))
+        return (axios.put(`https://interview-scheduler-2020.herokuapp.com/api/appointments/${id}`, appointment))
         .then(() => {
           dispatch({type: SET_INTERVIEW, id, interview, appointments, days});
         })
@@ -89,22 +70,21 @@ export default function useApplicationData() {
 
       const days = spotCounter(id, false)
 
-     return (axios.delete(`/api/appointments/${id}`))
+     return (axios.delete(`https://interview-scheduler-2020.herokuapp.com/api/appointments/${id}`))
      .then(() => {
       dispatch({type: SET_INTERVIEW, id, interview:null, days, appointments});
      })
     }
     // const setDay = day => setState({ ...state, day });
     const setDay = day => dispatch({type: SET_DAY, day});
-
+    
     useEffect(() => {
-        const daysPromise = axios.get('http://localhost:8008/api/days')
-        const appointmentsPromise = axios.get('http://localhost:8008/api/appointments') 
-        const interviewersPromise = axios.get('http://localhost:8008/api/interviewers')  
+        const daysPromise = axios.get('https://interview-scheduler-2020.herokuapp.com/api/days')
+        const appointmentsPromise = axios.get('https://interview-scheduler-2020.herokuapp.com/api/appointments') 
+        const interviewersPromise = axios.get('https://interview-scheduler-2020.herokuapp.com/api/interviewers')  
         
         Promise.all([daysPromise, appointmentsPromise, interviewersPromise])
         .then(([daysRes, appRes, intRes]) => {
-          // setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
           dispatch({type: SET_APPLICATION_DATA, days:daysRes.data, appointments:appRes.data, interviewers:intRes.data})
 
         })

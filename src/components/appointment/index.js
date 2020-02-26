@@ -1,3 +1,4 @@
+
 import React from 'react';
 import "./styles.scss";
 import Header from "./Header"
@@ -52,7 +53,6 @@ export default function Appointment(props) {
 
     const deleteConfirm = () => {
      transition(DELETE);
-        console.log("after delete")
 
      props.cancelInterview(props.id)
      .then(response => transition(EMPTY))
@@ -70,7 +70,7 @@ export default function Appointment(props) {
 
     return(
 
-        <article className="appointment">
+        <article className="appointment" data-testid="appointment">
          <Header
           time={props.time} 
           />
