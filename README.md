@@ -12,6 +12,19 @@
 
 Install dependencies with `npm install`.
 
+## Data
+ Appointment/interview data comes from a scheduler API provided by Lighthouse Labs. 
+
+ ### Netlify hosted Scheduler: https://stoic-einstein-ea6321.netlify.com/
+
+ ### Heroku hosted Scheduler-Api: https://interview-scheduler-2020.herokuapp.com
+
+ ---> /api/days
+
+ ---> /api/appointments
+
+ ---> /api/interviewers
+
 ## Running Webpack Development Server
 
 ```sh
@@ -39,15 +52,3 @@ cypress open -P .
 
 ![](public/images/scheduler.gif)
 
-## Data
- Appointment/interview data comes from a scheduler API provided by Lighthouse Labs. 
-
- ## Netlify hosted Scheduler: https://stoic-einstein-ea6321.netlify.com/
-
- ## Heroku hosted Scheduler-Api alternative: https://interview-scheduler-2020.herokuapp.com
-
- ---> /api/days
-
- ---> /api/appointments
-
- ---> /api/interviewers
