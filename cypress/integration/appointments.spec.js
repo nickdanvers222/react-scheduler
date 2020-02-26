@@ -20,7 +20,6 @@ describe("Appointments", () => {
         cy.get("[class='interviewers__item']").first().click()
         cy.contains("Save").click();
         cy.contains(".appointment__card--show", "Lydia Miller-Jones");
-        cy.contains(".appointment__card--show", "Tori Malcolm");
     })
     it("Should cancel an interview", () => {
         cy.get("[alt=Delete]").first().click({force:true});
