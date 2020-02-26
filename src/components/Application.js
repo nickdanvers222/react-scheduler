@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DayList from './DayList'
 import Appointment from "./appointment" 
 import "./Application.scss";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
 import useApplicationData from "../hooks/useApplicationData"
-import axios from "axios"
 
 export default function Application(props) {
   const {
@@ -14,13 +13,14 @@ export default function Application(props) {
     cancelInterview,
   } = useApplicationData();
 
+  //Retrieve Array of possible Interviewers
   const interviewersArray = getInterviewersForDay(state, state.day)
-
+  
+  //Retrieve Array of appointments for the selected day
   const appointments = getAppointmentsForDay(state, state.day);
 
+  //Map each interview from the appointments array
   const schedule = appointments.map((appointment) => {
-    // const interview = getInterview(state, appointment.interview)
-
     return (
       <Appointment
         key={appointment.id}

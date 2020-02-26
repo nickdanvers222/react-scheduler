@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, {useEffect, useReducer } from 'react';
 import axios from "axios";
 import {reducer,
   SET_DAY,
@@ -13,7 +13,7 @@ export default function useApplicationData() {
         appointments: {},
         interviewers: {},
     })
-
+    //counts the available spots for the selected day:
     const spotCounter = (id, flag) => {
       let targetDay = state.days.filter(weekday => weekday.appointments.includes(id))
       const dayId = targetDay[0] && targetDay[0].id
@@ -21,8 +21,6 @@ export default function useApplicationData() {
 
       if(flag && state.appointments[id].interview === null) {
         newSpots -- ;
-      // } else if (flag && state.appointments[id].interview !== null) {
-        // newSpots --;
       } else if (!flag) {
         newSpots++;
       }
@@ -36,6 +34,7 @@ export default function useApplicationData() {
         }
       })
     } 
+    //Dispatches the book interview command to the reducer:
     function bookInterview(id, interview) {
 
         const appointment = {
@@ -50,13 +49,13 @@ export default function useApplicationData() {
 
         const days = spotCounter(id, true);
 
-        return (axios.put(`https://interview-scheduler-2020.herokuapp.com/api/appointments/${id}`, appointment))
+        return (axios.put(`/api/appointments/${id}`, appointment))
         .then(() => {
           dispatch({type: SET_INTERVIEW, id, interview, appointments, days});
         })
 
     }
-
+    //Dispatches the cancel interview command to the reducer:
     function cancelInterview(id) {
       const appointment = {
         ...state.appointments[id],
@@ -70,18 +69,18 @@ export default function useApplicationData() {
 
       const days = spotCounter(id, false)
 
-     return (axios.delete(`https://interview-scheduler-2020.herokuapp.com/api/appointments/${id}`))
+     return (axios.delete(`/api/appointments/${id}`))
      .then(() => {
       dispatch({type: SET_INTERVIEW, id, interview:null, days, appointments});
      })
     }
-    // const setDay = day => setState({ ...state, day });
+
     const setDay = day => dispatch({type: SET_DAY, day});
     
     useEffect(() => {
-        const daysPromise = axios.get('https://interview-scheduler-2020.herokuapp.com/api/days')
-        const appointmentsPromise = axios.get('https://interview-scheduler-2020.herokuapp.com/api/appointments') 
-        const interviewersPromise = axios.get('https://interview-scheduler-2020.herokuapp.com/api/interviewers')  
+        const daysPromise = axios.get('/api/days')
+        const appointmentsPromise = axios.get('/api/appointments') 
+        const interviewersPromise = axios.get('/api/interviewers')  
         
         Promise.all([daysPromise, appointmentsPromise, interviewersPromise])
         .then(([daysRes, appRes, intRes]) => {

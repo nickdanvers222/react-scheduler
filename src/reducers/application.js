@@ -2,7 +2,6 @@
 export const SET_DAY = "SET_DAY";
 export const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 export const SET_INTERVIEW = "SET_INTERVIEW";
-console.log("Im the reducer")
 
  export function reducer(state, action) {
   switch (action.type) {
