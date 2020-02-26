@@ -7,7 +7,7 @@ export default function Form(props) {
   const [name, setName] = useState(props.student || "")
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
-  
+
   const reset = () => {
       setName("");
       setError("");
@@ -28,7 +28,6 @@ export default function Form(props) {
     props.onSave(name, interviewer)
 
   }
-
     return(<main className="appointment__card appointment__card--create">
     <section className="appointment__card-left">
       <form autoComplete="off"

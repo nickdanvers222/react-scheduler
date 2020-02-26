@@ -40,12 +40,17 @@ cypress open -P .
 ![](scheduler.gif)
 
 ## Data
- We get our appointment/interview data from a scheduler API provided by Lighthouse Labs. 
+ Appointment/interview data comes from a scheduler API provided by Lighthouse Labs. 
 
- -> I've uploaded a slightly modified duplicate to Heroku, it is possible to retrieve data from these end points should you not have access to the original API.
+   
 
- ## https://interview-scheduler-2020.herokuapp.com/api/days
+ ## Heroku hosted Scheduler-Api alternative: https://interview-scheduler-2020.herokuapp.com
 
- ## https://interview-scheduler-2020.herokuapp.com/api/appointments
+ ## API endpoints 
 
- ## https://interview-scheduler-2020.herokuapp.com/api/interviewers
+ -> /api/days
+
+ -> /api/appointments
+
+ -> /api/interviewers
+s
