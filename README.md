@@ -37,7 +37,7 @@ cypress open -P .
 
 ## Example!
 
-![](scheduler.gif)
+![](public/images/scheduler.gif)
 
 ## Data
  Appointment/interview data comes from a scheduler API provided by Lighthouse Labs. 
