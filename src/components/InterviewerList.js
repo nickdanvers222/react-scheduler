@@ -3,9 +3,6 @@ import InterviewerListItem from "./InterviewerListItem"
 import PropTypes from 'prop-types';
 import "./InterviewerList.scss"
 
-
-
-
 export default function InterviewerList(props) {
 
     return(
@@ -28,7 +25,6 @@ export default function InterviewerList(props) {
       </ul>
     </section>
     )
-    
 }
 
 InterviewerList.propTypes = 

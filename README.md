@@ -21,3 +21,10 @@ npm test
 ```sh
 npm run storybook
 ```
+## Running Cypress 
+
+```sh
+cypress open -P .
+```
+
+![](scheduler.gif)

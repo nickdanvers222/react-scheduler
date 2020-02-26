@@ -7,15 +7,7 @@ export default function Form(props) {
   const [name, setName] = useState(props.student || "")
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
-
-  // const validate = () => {
-  //   if(name === "") {
-  //     setError("Student name cannot be blank");
-  //     return;
-  //   }
-  //   props.onSave(name, interviewer);
-  // }
-
+  
   const reset = () => {
       setName("");
       setError("");
@@ -32,9 +24,6 @@ export default function Form(props) {
       setError("Student name cannot be blank");
       return;
     }
-    // if(interviewers === null) {
-    //   setError("Interviewer cannot be unselected")
-    // }
     setError("");
     props.onSave(name, interviewer)
 
@@ -52,10 +41,6 @@ export default function Form(props) {
           placeholder="Enter Student Name"
           data-testid="student-name-input"
           
-
-          /*
-            This must be a controlled component
-          */
         />
 
       </form>

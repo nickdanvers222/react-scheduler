@@ -1,5 +1,4 @@
 import React from "react";
-import { action } from '@storybook/addon-actions';
 import "./Button.scss";
 
 const classNames = require('classnames');
@@ -22,6 +21,3 @@ export default function Button(props) {
 
    
 }
-
-
-//<Button disabled onClick={action("button-clicked")>Disabled</Button>

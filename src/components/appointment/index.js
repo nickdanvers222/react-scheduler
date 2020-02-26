@@ -25,6 +25,8 @@ export default function Appointment(props) {
     const { mode, transition, back } = useVisualMode(
         props.interview ? SHOW : EMPTY
       );
+    
+      //onClick prop functions
 
     function save(name, interviewer) {
         transition(SAVING)
@@ -38,7 +40,6 @@ export default function Appointment(props) {
       .then(() => transition(SHOW))
       .catch(error => transition(ERROR_SAVE))
     }
-
 
     const onAdd = () => {
      transition(CREATE)
