@@ -1,3 +1,4 @@
+
 version: 2
 jobs:
   build:
@@ -19,21 +20,21 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
 
-deploy:
-  machine:
-    enabled: true
+  deploy:
+    machine:
+      enabled: true
 
-  working_directory: ~/client
+    working_directory: ~/client
 
-  steps:
-    - add_ssh_keys:
-        fingerprints:
-          - "c4:57:9a:a4:a1:29:20:73:dc:af:b1:60:69:fd:c1:88"
-    - checkout
-    - run:
-        name: Push Master to Production
-        command: |
-          git push https://github.com/Ravenor222/react-scheduler master:production
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "c4:57:9a:a4:a1:29:20:73:dc:af:b1:60:69:fd:c1:88"
+      - checkout
+      - run:
+          name: Push Master to Production
+          command: |
+            git push https://github.com/Ravenor222/react-scheduler.git master:production
 
 workflows:
   version: 2
